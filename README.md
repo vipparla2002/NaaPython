@@ -1,2 +1,2 @@
 # NaaPython
-Python programming tho aatalu
+Python programming tho naa aatalu
