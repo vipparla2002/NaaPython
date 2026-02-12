@@ -11,8 +11,12 @@ def taskKill():
     killed_count = 0
     killed_processes = []
 
-    for line in taskList.stdout.splitlines():   
-        if textInputCleaned in line.lower():
+    for line in taskList.stdout.splitlines():
+
+        if  not textInputCleaned:
+            subprocess.run(f"taskkill /F /IM chrome.exe /T", shell=True) 
+
+        elif textInputCleaned in line.lower():
             process_name = line.split()[0]  # First column = process name
             try:
                 subprocess.run(f"taskkill /F /IM {process_name} /T", shell=True)
@@ -20,6 +24,7 @@ def taskKill():
                 killed_processes.append(process_name)
             except:
                 pass
+        
     
     result.config(text=f"Task Kill Executed. Killed {killed_count}", bg="light blue", fg="black", font=("Arial", 16))
     # if(os.system("tasklist | findstr chrome") != 0):
@@ -38,11 +43,11 @@ window.title("Task Kill")
 window.geometry('350x350')
 window.resizable(True, True)
 
-# 🔹 Input Label
+#  Input Label
 input_label = tk.Label(window, text="Enter Process Name:", font=("Arial", 14))
 input_label.pack(pady=5)
 
-# 🔹 Text Box
+#  Text Box
 textInput = tk.Entry(window, font=("Arial", 14), width=25)
 textInput.pack(pady=5)
 #######################
